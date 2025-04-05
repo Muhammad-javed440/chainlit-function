@@ -1,0 +1,7 @@
+.venv
+uv.lock
+.env
+.files
+.chainlit
+__pycache__
+.python-version
