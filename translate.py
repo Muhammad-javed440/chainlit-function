@@ -30,58 +30,80 @@ run_config = RunConfig(
 # Step-4: Agent
 
 # -a
-english_to_urdu_agent = Agent(
+urdu_agent = Agent(
     name="English_agent",
-    handoff_description="AN english to urdu translator",
+    handoff_description="Any language to urdu translator",
     instructions="You translate the user's message to Urdu "
-)
-urdu_to_english_agent = Agent(
-    name="urdu_agent",
-    handoff_description="AN urdu to English translator",
-    instructions="You translate the user's message to english "
 )
 
 # -b
-english_to_spanish_agent = Agent(
+spanish_agent = Agent(
     name="spanish_agent",
-    instructions="You translate the user's message to Spanish",
-    handoff_description="An english to spanish translator",
-)
-spanish_to_english_agent = Agent(
-    name="english_agent",
-    instructions="You translate the user's message to english",
-    handoff_description="A spanish to english translator",
+    handoff_description="Any language to spanish translator",
+     instructions="You translate the user's message to Spanish"
 )
 
 # -c
-english_to_arabic_agent = Agent(
+arabic_agent = Agent(
     name="arabic_agent",
-    handoff_description="An english to arabic translator",
+    handoff_description="Any language to arabic translator",
     instructions="You translate the user's message to Arabic,and write it into arabic in right way carefuly"
-)
-arabic_to_english_agent = Agent(
-    name="arabic_agent",
-    handoff_description="An arabic to english translator",
-    instructions="You translate the user's message to english."
 )
 
 # -d
-english_to_german_agent = Agent(
+german_agent = Agent(
     name="german_agent",
-    handoff_description="An english to german translator",
+    handoff_description="Any language to german translator",
     instructions="You translate the user's message to German"
 )
-german_to_english_agent = Agent(
-    name="english_agent",
-    handoff_description="A german to english translator",
-    instructions="You translate the user's message to english"
-)  
+
+# -E
+hindi_agent = Agent(
+    name="hindi_agent",
+    handoff_description="Any language to hindi translator",
+    instructions="You translate the user's message to hindi"
+)
+
+# -F
+russian_agent = Agent(
+    name="russian_agent",
+    handoff_description="Any language to russian translator",
+    instructions="You translate the user's message to russian"
+)
+
+# -G
+italian_agent = Agent(
+    name="italian_agent",
+    handoff_description="Any language to italian translator",
+    instructions="You translate the user's message to italian"
+)
+
+# -h
+english_agent = Agent(
+    name="urdu_agent",
+    handoff_description="Any language to English translator",
+    instructions="You translate the user's message to english "
+)
+
+# -I
+chinies_agent = Agent(
+    name="chinies_agent",
+    handoff_description="Any language to chinies translator",
+    instructions="You translate the user's message to chinies "
+)
+
+# -J
+astrailian_agent = Agent(
+    name="astrailian_agent",
+    handoff_description="Any language to astrailian translator",
+    instructions="You translate the user's message to astrailian "
+)
+
 
 triage_agent = Agent(
     name="Triage Agent",
     instructions="You determine which agent to use based on the user's homework question",
-    handoffs=[english_to_urdu_agent,urdu_to_english_agent,english_to_spanish_agent,spanish_to_english_agent,
-              english_to_arabic_agent,arabic_to_english_agent,english_to_german_agent,]
+    handoffs=[urdu_agent,english_agent,spanish_agent,arabic_agent,german_agent,hindi_agent,russian_agent,italian_agent,chinies_agent,astrailian_agent]
 )
 
 # Step-5: Start chat
@@ -89,7 +111,7 @@ triage_agent = Agent(
 @cl.on_chat_start
 async def handle_chat_start():
     cl.user_session.set("history", [])
-    await cl.Message(content="Hello! I am the English to Arabic,Urdu and spanish translator Agent. How i can help you today?").send()
+    await cl.Message(content="Hello! I am the English to Arabic, Urdu, hindi, italian, russian, german and spanish translator Agent. How i can help you today?").send()
 
 # Step-6: Runner
 
