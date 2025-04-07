@@ -28,10 +28,35 @@ run_config = RunConfig(
 )
 
 # Step-4: Agent
-math_agent = Agent(
-    name="Math Tutor",
-    handoff_description="Specialist Agent for python code",
-    instructions="You provide help with python problems. Explain your reasoning at each step and include examples"
+frontend_agent = Agent(
+    name="frontend developer",
+    handoff_description="Specialist Agent for frontend developement",
+    instructions="""You provide help with HTML for structure of web pages,
+                    CSS / Tailwind / Bootstrap for styling , 
+                    JavaScript for interactivity and 
+                    Frameworks/Libraries: React, Next.js, Vue, Angular, etc. problems.
+                    Explain your reasoning at each step and include examples"""
+)
+
+backend_agent = Agent(
+    name="backend developer",
+    handoff_description="Specialist Agent for backend developement",
+    instructions="""You provide help for Languages: JavaScript (Node.js), Python (Django/Flask), PHP, Ruby, Java, etc.
+                     Databases: SQL (MySQL, PostgreSQL), NoSQL (MongoDB),
+                     Server/Hosting: Express.js (Node.js), Apache, Nginx
+                     """
+)
+
+stripe_agent=Agent(
+    name="Stripe payement agent",
+    handoff_description="Specialist Agent for stripe payement method",
+    instructions="You provide help stripe payement integration to get payment from users."
+)
+
+triage_agent = Agent(
+    name="Triage Agent",
+    instructions="You determine which agent to use based on the user's homework question",
+    handoffs=[frontend_agent, backend_agent,stripe_agent]
 )
 
 # Step-5: Start chat
@@ -39,7 +64,7 @@ math_agent = Agent(
 @cl.on_chat_start
 async def handle_chat_start():
     cl.user_session.set("history", [])
-    await cl.Message(content="Hello! I am the python problems Support Agent. How i can help you today?").send()
+    await cl.Message(content="Hello! I am the full stack developer problems Support Agent. How i can help you today?").send()
 
 # Step-6: Runner
 
@@ -53,7 +78,7 @@ async def handel_message(message: cl.Message):
     history.append({"role":"user", "content":message.content})
     
     result = Runner.run_streamed(
-        math_agent,
+        triage_agent,
         input=message.content,
         run_config=run_config
     )
