@@ -31,12 +31,14 @@ run_config = RunConfig(
 frontend_agent = Agent(
     name="frontend developer",
     handoff_description="Specialist Agent for frontend developement",
-    instructions="""You provide help with HTML for structure of web pages,
-                    CSS / Tailwind / Bootstrap for styling , 
-                    JavaScript for interactivity and 
-                    Frameworks/Libraries: React, Next.js, Vue, Angular, etc. problems.
-                    Explain your reasoning at each step and include examples"""
-)
+    instructions="""You provide help with:
+                 - HTML for structuring web pages
+                 - CSS / Tailwind / Bootstrap for styling
+                 - JavaScript for interactivity
+                 - Frameworks/Libraries like React, Next.js, Vue, Angular
+
+                 Explain your reasoning at each step and include examples."""
+)         
 
 backend_agent = Agent(
     name="backend developer",
@@ -64,7 +66,7 @@ triage_agent = Agent(
 @cl.on_chat_start
 async def handle_chat_start():
     cl.user_session.set("history", [])
-    await cl.Message(content="Hello! I am the full stack developer problems Support Agent. How i can help you today?").send()
+    await cl.Message(content="Hello! I am the full-stack developer support agent. How can I help you today?").send()
 
 # Step-6: Runner
 
