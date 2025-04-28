@@ -74,14 +74,14 @@ async def handle_chat_start():
 async def handel_message(message: cl.Message):
     history =cl.user_session.get("history")
     
-    msg = cl.Message(content="")
+    msg = cl.Message(content="Thinking.....\n\n")
     await msg.send()
     
     history.append({"role":"user", "content":message.content})
     
     result = Runner.run_streamed(
         triage_agent,
-        input=message.content,
+        input=history,
         run_config=run_config
     )
     async for event in result.stream_events():
@@ -91,6 +91,6 @@ async def handel_message(message: cl.Message):
     history.append({"role":"assistant", "content": result.final_output})
     cl.user_session.set("history", history)
     
-    await cl.Message(content=result.final_output).send()
+
 
 
